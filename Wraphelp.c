@@ -62,7 +62,7 @@
  * insure compliance.
  */
 
-static u_int32_t skb[8][64] = {
+static uint32_t skb[8][64] = {
 	/* for C bits (numbered as per FIPS 46) 1 2 3 4 5 6 */
 	{ 0x00000000,0x00000010,0x20000000,0x20000010,
 	  0x00010000,0x00010010,0x20010000,0x20010010,
@@ -202,7 +202,7 @@ static u_int32_t skb[8][64] = {
 };
 
 
-static u_int32_t SPtrans[8][64] = {
+static uint32_t SPtrans[8][64] = {
 	/* nibble 0 */
 	{ 0x00410100, 0x00010000, 0x40400000, 0x40410100,
 	  0x00400000, 0x40010100, 0x40010000, 0x40400000,
@@ -351,15 +351,15 @@ static u_int32_t SPtrans[8][64] = {
 #define ITERATIONS 16
 #define HALF_ITERATIONS 8
 
-#define c2l(c,l)	(l =((u_int32_t)(*((c)++)))    , \
-			 l|=((u_int32_t)(*((c)++)))<< 8, \
-			 l|=((u_int32_t)(*((c)++)))<<16, \
-			 l|=((u_int32_t)(*((c)++)))<<24)
+#define c2l(c,l)	(l =((uint32_t)(*((c)++)))    , \
+			 l|=((uint32_t)(*((c)++)))<< 8, \
+			 l|=((uint32_t)(*((c)++)))<<16, \
+			 l|=((uint32_t)(*((c)++)))<<24)
 
-#define l2c(l,c)	(*((c)++)=(u_int8_t)(((l)    )&0xff), \
-			 *((c)++)=(u_int8_t)(((l)>> 8)&0xff), \
-			 *((c)++)=(u_int8_t)(((l)>>16)&0xff), \
-			 *((c)++)=(u_int8_t)(((l)>>24)&0xff))
+#define l2c(l,c)	(*((c)++)=(uint8_t)(((l)    )&0xff), \
+			 *((c)++)=(uint8_t)(((l)>> 8)&0xff), \
+			 *((c)++)=(uint8_t)(((l)>>16)&0xff), \
+			 *((c)++)=(uint8_t)(((l)>>24)&0xff))
 
 #define PERM_OP(a,b,t,n,m) ((t)=((((a)>>(n))^(b))&(m)),\
 	(b)^=(t),\
@@ -372,13 +372,13 @@ static char shifts2[16] = {0,0,1,1,1,1,1,1,0,1,1,1,1,1,1,0};
 
 void _XdmcpAuthSetup(auth_cblock key, auth_wrapper_schedule schedule)
 {
-	u_int32_t c,d,t,s;
-	u_int8_t *in;
-	u_int32_t *k;
+	uint32_t c,d,t,s;
+	uint8_t *in;
+	uint32_t *k;
 	int i;
 
-	k=(u_int32_t *)schedule;
-	in=(u_int8_t *)key;
+	k=(uint32_t *)schedule;
+	in=(uint8_t *)key;
 
 	c2l(in,c);
 	c2l(in,d);
@@ -444,13 +444,13 @@ void _XdmcpAuthSetup(auth_cblock key, auth_wrapper_schedule schedule)
 void _XdmcpAuthDoIt(auth_cblock input, auth_cblock output,
     auth_wrapper_schedule ks, int encrypt)
 {
-	u_int32_t l,r,t,u;
-	u_int32_t *s;
-	u_int8_t *in,*out;
+	uint32_t l,r,t,u;
+	uint32_t *s;
+	uint8_t *in,*out;
 	int i;
 
-	in=(u_int8_t *)input;
-	out=(u_int8_t *)output;
+	in=(uint8_t *)input;
+	out=(uint8_t *)output;
 	c2l(in,l);
 	c2l(in,r);
 
@@ -465,7 +465,7 @@ void _XdmcpAuthDoIt(auth_cblock input, auth_cblock output,
 	l=r;
 	r=t;
 
-	s=(u_int32_t *)ks;
+	s=(uint32_t *)ks;
 
 	if (encrypt) {
 		for (i=0; i<(ITERATIONS*2); i+=4) {
