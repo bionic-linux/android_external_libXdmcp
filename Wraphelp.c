@@ -4,6 +4,7 @@
  */
 
 #include <sys/types.h>
+#include <X11/Xmd.h>
 #include "Wrap.h"
 
 /* des routines for non-usa - eay 10/9/1991 eay@psych.psy.uq.oz.au
@@ -62,7 +63,7 @@
  * insure compliance.
  */
 
-static uint32_t skb[8][64] = {
+static CARD32 skb[8][64] = {
 	/* for C bits (numbered as per FIPS 46) 1 2 3 4 5 6 */
 	{ 0x00000000,0x00000010,0x20000000,0x20000010,
 	  0x00010000,0x00010010,0x20010000,0x20010010,
@@ -202,7 +203,7 @@ static uint32_t skb[8][64] = {
 };
 
 
-static uint32_t SPtrans[8][64] = {
+static CARD32 SPtrans[8][64] = {
 	/* nibble 0 */
 	{ 0x00410100, 0x00010000, 0x40400000, 0x40410100,
 	  0x00400000, 0x40010100, 0x40010000, 0x40400000,
@@ -351,15 +352,15 @@ static uint32_t SPtrans[8][64] = {
 #define ITERATIONS 16
 #define HALF_ITERATIONS 8
 
-#define c2l(c,l)	(l =((uint32_t)(*((c)++)))    , \
-			 l|=((uint32_t)(*((c)++)))<< 8, \
-			 l|=((uint32_t)(*((c)++)))<<16, \
-			 l|=((uint32_t)(*((c)++)))<<24)
+#define c2l(c,l)	(l =((CARD32)(*((c)++)))    , \
+			 l|=((CARD32)(*((c)++)))<< 8, \
+			 l|=((CARD32)(*((c)++)))<<16, \
+			 l|=((CARD32)(*((c)++)))<<24)
 
-#define l2c(l,c)	(*((c)++)=(uint8_t)(((l)    )&0xff), \
-			 *((c)++)=(uint8_t)(((l)>> 8)&0xff), \
-			 *((c)++)=(uint8_t)(((l)>>16)&0xff), \
-			 *((c)++)=(uint8_t)(((l)>>24)&0xff))
+#define l2c(l,c)	(*((c)++)=(CARD8)(((l)    )&0xff), \
+			 *((c)++)=(CARD8)(((l)>> 8)&0xff), \
+			 *((c)++)=(CARD8)(((l)>>16)&0xff), \
+			 *((c)++)=(CARD8)(((l)>>24)&0xff))
 
 #define PERM_OP(a,b,t,n,m) ((t)=((((a)>>(n))^(b))&(m)),\
 	(b)^=(t),\
@@ -372,13 +373,13 @@ static char shifts2[16] = {0,0,1,1,1,1,1,1,0,1,1,1,1,1,1,0};
 
 void _XdmcpAuthSetup(auth_cblock key, auth_wrapper_schedule schedule)
 {
-	uint32_t c,d,t,s;
-	uint8_t *in;
-	uint32_t *k;
+	CARD32 c,d,t,s;
+	CARD8 *in;
+	CARD32 *k;
 	int i;
 
-	k=(uint32_t *)schedule;
-	in=(uint8_t *)key;
+	k=(CARD32 *)schedule;
+	in=(CARD8 *)key;
 
 	c2l(in,c);
 	c2l(in,d);
@@ -444,13 +445,13 @@ void _XdmcpAuthSetup(auth_cblock key, auth_wrapper_schedule schedule)
 void _XdmcpAuthDoIt(auth_cblock input, auth_cblock output,
     auth_wrapper_schedule ks, int encrypt)
 {
-	uint32_t l,r,t,u;
-	uint32_t *s;
-	uint8_t *in,*out;
+	CARD32 l,r,t,u;
+	CARD32 *s;
+	CARD8 *in,*out;
 	int i;
 
-	in=(uint8_t *)input;
-	out=(uint8_t *)output;
+	in=(CARD8 *)input;
+	out=(CARD8 *)output;
 	c2l(in,l);
 	c2l(in,r);
 
@@ -465,7 +466,7 @@ void _XdmcpAuthDoIt(auth_cblock input, auth_cblock output,
 	l=r;
 	r=t;
 
-	s=(uint32_t *)ks;
+	s=(CARD32 *)ks;
 
 	if (encrypt) {
 		for (i=0; i<(ITERATIONS*2); i+=4) {
