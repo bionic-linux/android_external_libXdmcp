@@ -27,6 +27,8 @@ in this Software without prior written authorization from The Open Group.
  * Author:  Keith Packard, MIT X Consortium
  */
 
+/* $XFree86: xc/lib/Xdmcp/Wrap.c,v 1.4 2001/12/14 19:54:56 dawes Exp $ */
+
 #include <X11/Xos.h>
 #include <X11/X.h>
 #include <X11/Xmd.h>
@@ -46,10 +48,11 @@ in this Software without prior written authorization from The Open Group.
 #include "Wrap.h"
 
 void
-XdmcpWrap (input, wrapper, output, bytes)
-    unsigned char	*input, *output;
-    unsigned char	*wrapper;
-    int			bytes;
+XdmcpWrap (
+    unsigned char	*input,
+    unsigned char	*wrapper,
+    unsigned char	*output,
+    int			bytes)
 {
     int			i, j;
     int			len;
@@ -89,8 +92,7 @@ XdmcpWrap (input, wrapper, output, bytes)
  */
 
 static int
-OddParity (c)
-    unsigned char   c;
+OddParity (unsigned char c)
 {
     c = c ^ (c >> 4);
     c = c ^ (c >> 2);
@@ -104,8 +106,9 @@ OddParity (c)
  */
 
 void
-_XdmcpWrapperToOddParity (in, out)
-    unsigned char   *in, *out;
+_XdmcpWrapperToOddParity (
+    unsigned char   *in,
+    unsigned char   *out)
 {
     int		    ashift, bshift;
     int		    i;

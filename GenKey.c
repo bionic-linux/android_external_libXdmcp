@@ -27,14 +27,15 @@ in this Software without prior written authorization from The Open Group.
  * Author:  Keith Packard, MIT X Consortium
  */
 
+/* $XFree86: xc/lib/Xdmcp/GenKey.c,v 3.8 2001/12/14 19:54:54 dawes Exp $ */
+
 #include <X11/Xos.h>
 #include <X11/X.h>
 #include <X11/Xmd.h>
 #include <X11/Xdmcp.h>
 
-static getbits (data, dst)
-    long	    data;
-    unsigned char   *dst;
+static void
+getbits (long data, unsigned char *dst)
 {
     dst[0] = (data      ) & 0xff;
     dst[1] = (data >>  8) & 0xff;
@@ -42,23 +43,17 @@ static getbits (data, dst)
     dst[3] = (data >> 24) & 0xff;
 }
 
-#ifdef X_NOT_STDC_ENV
-#define Time_t long
-extern Time_t time ();
-#else
 #define Time_t time_t
-#endif
+
+#include <stdlib.h>
 
 #if defined(SYSV) || defined(SVR4)
 #define srandom srand48
 #define random lrand48
 #endif
 
-long random();
-
 void
-XdmcpGenerateKey (key)
-    XdmAuthKeyPtr   key;
+XdmcpGenerateKey (XdmAuthKeyPtr key)
 {
     long    lowbits, highbits;
 

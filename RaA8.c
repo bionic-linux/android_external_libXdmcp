@@ -27,15 +27,15 @@ in this Software without prior written authorization from The Open Group.
  * Author:  Keith Packard, MIT X Consortium
  */
 
+/* $XFree86: xc/lib/Xdmcp/RaA8.c,v 1.4 2001/12/14 19:54:55 dawes Exp $ */
+
 #include <X11/Xos.h>
 #include <X11/X.h>
 #include <X11/Xmd.h>
 #include <X11/Xdmcp.h>
 
 int
-XdmcpReallocARRAY8 (array, length)
-    ARRAY8Ptr	array;
-    int		length;
+XdmcpReallocARRAY8 (ARRAY8Ptr array, int length)
 {
     CARD8Ptr	newData;
 

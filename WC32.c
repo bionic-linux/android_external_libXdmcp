@@ -26,6 +26,7 @@ in this Software without prior written authorization from The Open Group.
  * *
  * Author:  Keith Packard, MIT X Consortium
  */
+/* $XFree86: xc/lib/Xdmcp/WC32.c,v 1.5 2001/12/14 19:54:55 dawes Exp $ */
 
 #include <X11/Xos.h>
 #include <X11/X.h>
@@ -33,9 +34,9 @@ in this Software without prior written authorization from The Open Group.
 #include <X11/Xdmcp.h>
 
 int
-XdmcpWriteCARD32 (buffer, value)
-    XdmcpBufferPtr  buffer;
-    CARD32	    value;
+XdmcpWriteCARD32 (
+    XdmcpBufferPtr  buffer,
+    unsigned	    value)
 {
     if (!XdmcpWriteCARD8 (buffer, value >> 24))
 	return FALSE;

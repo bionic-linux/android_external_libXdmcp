@@ -27,6 +27,8 @@ in this Software without prior written authorization from The Open Group.
  * Author:  Keith Packard, MIT X Consortium
  */
 
+/* $XFree86: xc/lib/Xdmcp/Fill.c,v 3.9 2001/12/14 19:54:54 dawes Exp $ */
+
 #ifdef WIN32
 #define _WILLWINSOCK_
 #endif
@@ -41,7 +43,11 @@ in this Software without prior written authorization from The Open Group.
 #ifdef WIN32
 #include <X11/Xwinsock.h>
 #else
+#ifndef Lynx
 #include <sys/socket.h>
+#else
+#include <socket.h>
+#endif /* !Lynx */
 #endif
 #endif
 
@@ -83,7 +89,7 @@ XdmcpFill (fd, buffer, from, fromlen)
     *fromlen = dataunit.addr.len;
 #else
     buffer->count = recvfrom (fd, (char*)buffer->data, buffer->size, 0,
-			      (struct sockaddr *)from, fromlen);
+			      (struct sockaddr *)from, (void *)fromlen);
 #endif
     if (buffer->count < 6) {
 	buffer->count = 0;
