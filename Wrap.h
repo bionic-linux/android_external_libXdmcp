@@ -3,7 +3,7 @@
  * header file for compatibility with something useful
  */
 
-/* $XFree86$ */
+/* $XFree86: xc/lib/Xdmcp/Wrap.h,v 1.4 2003/12/19 02:05:38 dawes Exp $ */
 
 typedef unsigned char auth_cblock[8];	/* block size */
 
