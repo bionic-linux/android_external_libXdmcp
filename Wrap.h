@@ -1,4 +1,4 @@
-/* $XdotOrg: xc/lib/Xdmcp/Wrap.h,v 1.3 2004/07/06 14:37:47 eich Exp $ */
+/* $XdotOrg: xc/lib/Xdmcp/Wrap.h,v 1.4 2004/08/21 02:06:44 jg Exp $ */
 /* $Xorg: Wrap.h,v 1.3 2000/08/17 19:45:50 cpqbld Exp $ */
 /*
  * header file for compatibility with something useful
@@ -14,6 +14,6 @@ extern void _XdmcpWrapperToOddParity (unsigned char *in, unsigned char *out);
 
 #ifdef HASXDMAUTH
 extern void _XdmcpAuthSetup (auth_cblock key, auth_wrapper_schedule schedule);
-extern void _XdmcpAuthDoIt (auth_cblock *input, auth_cblock *output,
+extern void _XdmcpAuthDoIt (auth_cblock input, auth_cblock output,
 	auth_wrapper_schedule schedule, int edflag);
 #endif
