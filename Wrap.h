@@ -1,4 +1,4 @@
-/* $XdotOrg: Wrap.h,v 1.3 2000/08/17 19:45:50 cpqbld Exp $ */
+/* $XdotOrg: xc/lib/Xdmcp/Wrap.h,v 1.2 2004/04/23 18:43:41 eich Exp $ */
 /* $Xorg: Wrap.h,v 1.3 2000/08/17 19:45:50 cpqbld Exp $ */
 /*
  * header file for compatibility with something useful
@@ -16,6 +16,6 @@ extern void _XdmcpWrapperToOddParity (unsigned char *in, unsigned char *out);
 /* They're really void but that would mean changing Wraphelp.c as well
    which isnt in version control. */
 extern int _XdmcpAuthSetup (auth_cblock key, auth_wrapper_schedule schedule);
-extern int _XdmcpAuthDoIt (auth_cblock input, auth_cblock output,
+extern int _XdmcpAuthDoIt (auth_cblock *input, auth_cblock *output,
 	auth_wrapper_schedule schedule, int edflag);
 #endif
