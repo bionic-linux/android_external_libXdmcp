@@ -27,7 +27,7 @@ in this Software without prior written authorization from The Open Group.
  * Author:  Keith Packard, MIT X Consortium
  */
 
-/* $XFree86: xc/lib/Xdmcp/DecKey.c,v 1.4 2001/12/14 19:54:54 dawes Exp $ */
+/* $XFree86$ */
 
 #include <X11/Xos.h>
 #include <X11/X.h>
