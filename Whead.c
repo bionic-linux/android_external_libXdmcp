@@ -27,15 +27,17 @@ in this Software without prior written authorization from The Open Group.
  * Author:  Keith Packard, MIT X Consortium
  */
 
+/* $XFree86: xc/lib/Xdmcp/Whead.c,v 1.4 2001/12/14 19:54:55 dawes Exp $ */
+
 #include <X11/Xos.h>
 #include <X11/X.h>
 #include <X11/Xmd.h>
 #include <X11/Xdmcp.h>
 
 int
-XdmcpWriteHeader (buffer, header)
-    XdmcpBufferPtr  buffer;
-    XdmcpHeaderPtr  header;
+XdmcpWriteHeader (
+    XdmcpBufferPtr  buffer,
+    XdmcpHeaderPtr  header)
 {
     BYTE    *newData;
 
@@ -44,7 +46,7 @@ XdmcpWriteHeader (buffer, header)
 	newData = (BYTE *) Xalloc (XDM_MAX_MSGLEN * sizeof (BYTE));
 	if (!newData)
 	    return FALSE;
-	Xfree (buffer->data);
+	Xfree ((unsigned long *)(buffer->data));
 	buffer->data = newData;
 	buffer->size = XDM_MAX_MSGLEN;
     }

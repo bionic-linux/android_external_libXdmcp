@@ -1,4 +1,4 @@
-/* $Xorg: Xdmcp.h,v 1.6 2000/08/17 19:45:50 cpqbld Exp $ */
+/* $Xorg: Xdmcp.h,v 1.7 2001/04/13 14:43:00 steve Exp $ */
 /*
  * Copyright 1989 Network Computing Devices, Inc., Mountain View, California.
  *
@@ -13,10 +13,17 @@
  * without express or implied warranty.
  *
  */
-#include <X11/Xmd.h>
+/* $XFree86: xc/lib/Xdmcp/Xdmcp.h,v 3.6 2001/12/19 21:37:31 dawes Exp $ */
 
 #ifndef _XDMCP_H_
 #define _XDMCP_H_
+
+#include <X11/Xmd.h>
+
+#include <X11/Xfuncproto.h>
+
+_XFUNCPROTOBEGIN
+
 #define XDM_PROTOCOL_VERSION	1
 #define XDM_UDP_PORT		177
 #define XDM_MAX_MSGLEN		8192
@@ -29,8 +36,8 @@
 
 typedef enum {
     BROADCAST_QUERY = 1, QUERY, INDIRECT_QUERY, FORWARD_QUERY,
-    WILLING, UNWILLING, REQUEST, ACCEPT, DECLINE, MANAGE, REFUSE, 
-    FAILED, KEEPALIVE, ALIVE 
+    WILLING, UNWILLING, REQUEST, ACCEPT, DECLINE, MANAGE, REFUSE,
+    FAILED, KEEPALIVE, ALIVE
 } xdmOpCode;
 
 typedef enum {
@@ -98,34 +105,45 @@ typedef struct _XdmAuthKey {
 
 typedef char *XdmcpNetaddr;
 
+extern int XdmcpWriteARRAY16(XdmcpBufferPtr buffer, ARRAY16Ptr array);
+extern int XdmcpWriteARRAY32(XdmcpBufferPtr buffer, ARRAY32Ptr array);
+extern int XdmcpWriteARRAY8(XdmcpBufferPtr buffer, ARRAY8Ptr array);
+extern int XdmcpWriteARRAYofARRAY8(XdmcpBufferPtr buffer, ARRAYofARRAY8Ptr array);
+extern int XdmcpWriteCARD16(XdmcpBufferPtr buffer, unsigned value);
+extern int XdmcpWriteCARD32(XdmcpBufferPtr buffer, unsigned value);
+extern int XdmcpWriteCARD8(XdmcpBufferPtr buffer, unsigned value);
+extern int XdmcpWriteHeader(XdmcpBufferPtr  buffer, XdmcpHeaderPtr  header);
 
-extern int XdmcpWriteCARD8(),		XdmcpWriteCARD16();
-extern int XdmcpWriteCARD32();
-extern int XdmcpWriteARRAY8(),		XdmcpWriteARRAY16();
-extern int XdmcpWriteARRAY32(),		XdmcpWriteARRAYofARRAY8();
-extern int XdmcpWriteHeader(),		XdmcpFlush();
+extern int XdmcpFlush(int fd, XdmcpBufferPtr buffer, XdmcpNetaddr to, int tolen);
 
-extern int XdmcpReadCARD8(),		XdmcpReadCARD16();
-extern int XdmcpReadCARD32();
-extern int XdmcpReadARRAY8(),		XdmcpReadARRAY16();
-extern int XdmcpReadARRAY32(),		XdmcpReadARRAYofARRAY8();
-extern int XdmcpReadHeader(),		XdmcpFill();
+extern int XdmcpReadARRAY16(XdmcpBufferPtr buffer, ARRAY16Ptr array);
+extern int XdmcpReadARRAY32(XdmcpBufferPtr buffer, ARRAY32Ptr array);
+extern int XdmcpReadARRAY8(XdmcpBufferPtr buffer, ARRAY8Ptr array);
+extern int XdmcpReadARRAYofARRAY8(XdmcpBufferPtr buffer, ARRAYofARRAY8Ptr array);
+extern int XdmcpReadCARD16(XdmcpBufferPtr buffer, CARD16Ptr valuep);
+extern int XdmcpReadCARD32(XdmcpBufferPtr buffer, CARD32Ptr valuep);
+extern int XdmcpReadCARD8(XdmcpBufferPtr buffer, CARD8Ptr valuep);
+extern int XdmcpReadHeader(XdmcpBufferPtr buffer, XdmcpHeaderPtr header);
 
-extern int  XdmcpReadRemaining();
+extern int XdmcpFill(int fd, XdmcpBufferPtr buffer, XdmcpNetaddr from, int *fromlen);
 
-extern void XdmcpDisposeARRAY8(),	XdmcpDisposeARRAY16();
-extern void XdmcpDisposeARRAY32(),	XdmcpDisposeARRAYofARRAY8();
+extern int XdmcpReadRemaining(XdmcpBufferPtr buffer);
 
-extern int XdmcpCopyARRAY8();
+extern void XdmcpDisposeARRAY8(ARRAY8Ptr array);
+extern void XdmcpDisposeARRAY16(ARRAY16Ptr array);
+extern void XdmcpDisposeARRAY32(ARRAY32Ptr array);
+extern void XdmcpDisposeARRAYofARRAY8(ARRAYofARRAY8Ptr array);
 
-extern int XdmcpARRAY8Equal();
+extern int XdmcpCopyARRAY8(ARRAY8Ptr src, ARRAY8Ptr dst);
 
+extern int XdmcpARRAY8Equal(ARRAY8Ptr array1, ARRAY8Ptr array2);
+
+extern void XdmcpGenerateKey (XdmAuthKeyPtr key);
+extern void XdmcpIncrementKey (XdmAuthKeyPtr key);
+extern void XdmcpDecrementKey (XdmAuthKeyPtr key);
 #ifdef HASXDMAUTH
-extern void XdmcpGenerateKey();
-extern void XdmcpIncrementKey();
-extern void XdmcpDecrementKey();
-extern void XdmcpWrap();
-extern void XdmcpUnwrap();
+extern void XdmcpWrap(unsigned char *input, unsigned char *wrapper, unsigned char *output, int bytes);
+extern void XdmcpUnwrap(unsigned char *input, unsigned char *wrapper, unsigned char *output, int bytes);
 #endif
 
 #ifndef TRUE
@@ -134,8 +152,23 @@ extern void XdmcpUnwrap();
 #endif
 
 #if !defined(Xalloc) && !defined(xalloc) && !defined(Xrealloc)
-extern long *Xalloc (), *Xrealloc ();
-extern void Xfree();
+extern void *Xalloc (unsigned long amount);
+extern void *Xrealloc (void *old, unsigned long amount);
+extern void Xfree(void *old);
 #endif
+
+extern int XdmcpCompareKeys (XdmAuthKeyPtr a, XdmAuthKeyPtr b);
+
+extern int XdmcpAllocARRAY16 (ARRAY16Ptr array, int length);
+extern int XdmcpAllocARRAY32 (ARRAY32Ptr array, int length);
+extern int XdmcpAllocARRAY8 (ARRAY8Ptr array, int length);
+extern int XdmcpAllocARRAYofARRAY8 (ARRAYofARRAY8Ptr array, int length);
+
+extern int XdmcpReallocARRAY16 (ARRAY16Ptr array, int length);
+extern int XdmcpReallocARRAY32 (ARRAY32Ptr array, int length);
+extern int XdmcpReallocARRAY8 (ARRAY8Ptr array, int length);
+extern int XdmcpReallocARRAYofARRAY8 (ARRAYofARRAY8Ptr array, int length);
+
+_XFUNCPROTOEND
 
 #endif /* _XDMCP_H_ */

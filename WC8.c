@@ -27,15 +27,17 @@ in this Software without prior written authorization from The Open Group.
  * Author:  Keith Packard, MIT X Consortium
  */
 
+/* $XFree86: xc/lib/Xdmcp/WC8.c,v 1.5 2001/12/14 19:54:55 dawes Exp $ */
+
 #include <X11/Xos.h>
 #include <X11/X.h>
 #include <X11/Xmd.h>
 #include <X11/Xdmcp.h>
 
 int
-XdmcpWriteCARD8 (buffer, value)
-    XdmcpBufferPtr  buffer;
-    CARD8	    value;
+XdmcpWriteCARD8 (
+    XdmcpBufferPtr  buffer,
+    unsigned	    value)
 {
     if (buffer->pointer >= buffer->size)
 	return FALSE;

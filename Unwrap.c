@@ -27,6 +27,8 @@ in this Software without prior written authorization from The Open Group.
  * Author:  Keith Packard, MIT X Consortium
  */
 
+/* $XFree86: xc/lib/Xdmcp/Unwrap.c,v 1.4 2001/12/14 19:54:55 dawes Exp $ */
+
 #include <X11/Xos.h>
 #include <X11/X.h>
 #include <X11/Xmd.h>
@@ -52,10 +54,11 @@ in this Software without prior written authorization from The Open Group.
 #include "Wrap.h"
 
 void
-XdmcpUnwrap (input, wrapper, output, bytes)
-    unsigned char	*input, *output;
-    unsigned char	*wrapper;
-    int			bytes;
+XdmcpUnwrap (
+    unsigned char	*input,
+    unsigned char	*wrapper,
+    unsigned char	*output,
+    int			bytes)
 {
     int			i, j, k;
     unsigned char	tmp[8];

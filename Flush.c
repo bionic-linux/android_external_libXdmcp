@@ -27,6 +27,8 @@ in this Software without prior written authorization from The Open Group.
  * Author:  Keith Packard, MIT X Consortium
  */
 
+/* $XFree86: xc/lib/Xdmcp/Flush.c,v 3.8 2001/12/14 19:54:54 dawes Exp $ */
+
 #ifdef WIN32
 #define _WILLWINSOCK_
 #endif
@@ -41,7 +43,11 @@ in this Software without prior written authorization from The Open Group.
 #ifdef WIN32
 #include <X11/Xwinsock.h>
 #else
+#ifndef Lynx
 #include <sys/socket.h>
+#else
+#include <socket.h>
+#endif /* !Lynx */
 #endif
 #endif
 
@@ -53,7 +59,6 @@ XdmcpFlush (fd, buffer, to, tolen)
     int		    tolen;
 {
     int result;
-
 #ifdef STREAMSCONN
     struct t_unitdata dataunit;
 
