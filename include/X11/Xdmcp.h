@@ -13,7 +13,7 @@
  * without express or implied warranty.
  *
  */
-/* $XFree86: xc/lib/Xdmcp/Xdmcp.h,v 3.6 2001/12/19 21:37:31 dawes Exp $ */
+/* $XFree86: xc/lib/Xdmcp/Xdmcp.h,v 3.7 2003/07/09 15:27:29 tsi Exp $ */
 
 #ifndef _XDMCP_H_
 #define _XDMCP_H_
@@ -45,7 +45,11 @@ typedef enum {
     XDM_COLLECT_BROADCAST_QUERY, XDM_COLLECT_INDIRECT_QUERY,
     XDM_START_CONNECTION, XDM_AWAIT_REQUEST_RESPONSE,
     XDM_AWAIT_MANAGE_RESPONSE, XDM_MANAGE, XDM_RUN_SESSION, XDM_OFF,
-    XDM_AWAIT_USER_INPUT, XDM_KEEPALIVE, XDM_AWAIT_ALIVE_RESPONSE
+    XDM_AWAIT_USER_INPUT, XDM_KEEPALIVE, XDM_AWAIT_ALIVE_RESPONSE,
+#if defined(IPv6) && defined(AF_INET6)
+    XDM_MULTICAST, XDM_COLLECT_MULTICAST_QUERY,
+#endif
+    XDM_KEEP_ME_LAST
 } xdmcp_states;
 
 #ifdef NOTDEF
