@@ -1,4 +1,4 @@
-/* $XdotOrg: xc/lib/Xdmcp/Wrap.h,v 1.1.4.2.4.1 2004/03/04 17:46:53 eich Exp $ */
+/* $XdotOrg: xc/lib/Xdmcp/Wrap.h,v 1.5 2004/08/22 01:02:25 jg Exp $ */
 /* $Xorg: Wrap.h,v 1.3 2000/08/17 19:45:50 cpqbld Exp $ */
 /*
  * header file for compatibility with something useful
@@ -13,9 +13,7 @@ typedef struct auth_ks_struct { auth_cblock _; } auth_wrapper_schedule[16];
 extern void _XdmcpWrapperToOddParity (unsigned char *in, unsigned char *out);
 
 #ifdef HASXDMAUTH
-/* They're really void but that would mean changing Wraphelp.c as well
-   which isnt in version control. */
-extern int _XdmcpAuthSetup (auth_cblock key, auth_wrapper_schedule schedule);
-extern int _XdmcpAuthDoIt (auth_cblock input, auth_cblock output,
+extern void _XdmcpAuthSetup (auth_cblock key, auth_wrapper_schedule schedule);
+extern void _XdmcpAuthDoIt (auth_cblock input, auth_cblock output,
 	auth_wrapper_schedule schedule, int edflag);
 #endif

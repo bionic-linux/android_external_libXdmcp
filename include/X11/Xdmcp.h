@@ -1,4 +1,4 @@
-/* $XdotOrg: xc/lib/Xdmcp/Xdmcp.h,v 1.1.4.3.4.1 2004/03/04 17:46:53 eich Exp $ */
+/* $XdotOrg: xc/lib/Xdmcp/Xdmcp.h,v 1.2 2004/04/23 18:43:41 eich Exp $ */
 /* $Xorg: Xdmcp.h,v 1.7 2001/04/13 14:43:00 steve Exp $ */
 /*
  * Copyright 1989 Network Computing Devices, Inc., Mountain View, California.
