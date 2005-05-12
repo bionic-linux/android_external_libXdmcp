@@ -1,0 +1,47 @@
+2004-11-22  Carl Worth  <cworth@cworth.org>
+
+	* configure.ac: Remove AC_CONFIG_AUX_DIR (it was in the wrong
+	place for automake-1.9, and it was set to the default value
+	anyway).
+
+2004-11-13  Daniel Stone  <daniel@freedesktop.org>
+
+	* Release 0.1.3.
+	* Bump soversion to 6:0:0 in line with the monolithic tree.
+
+2004-05-09  Eric Anholt  <anholt@FreeBSD.org>
+
+	* Makefile.am:
+	libtool's versioning is not for package version information.
+	Revert to original 0:0:0 version-info, since this hadn't been
+	released yet.
+
+	* configure.ac:
+	Bump version to 0.1.3
+
+2004-04-23  Carlos Romero  <kidcrash@freedesktop.org>
+	* Makefile.am:
+	use -version-number since $age -gt $current
+
+2004-04-19  Daniel Stone  <daniel@freedesktop.org>
+	
+	* *.h:
+	Merge from X11R6.7.
+
+	* Makefile.am:
+	Adding version info to the .so.
+
+	* Tag version 0.1.2 for xlibs 1.0.1.
+
+2004-02-03  Jim Gettys  <jg@freedesktop.org>
+
+	* AUTHORS: add authors to file
+
+2004-01-17  Daniel Stone  <daniel@fooishbar.org>
+	* Tagging release 0.1.1 for the first freedesktop.org clientside libs
+	  release.
+
+2004-01-16  Eric Anholt  <anholt@FreeBSD.org>
+
+	* Makefile.am:
+	Make Wraphelp.c nodist, so that distcheck succeeds.

@@ -1,0 +1,10 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: Xdmcp
+Description: X Display Manager Control Protocol library
+Version: @PACKAGE_VERSION@
+Libs: -L${libdir} -lXdmcp
+Cflags: -I${includedir}
