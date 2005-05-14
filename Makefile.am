@@ -56,7 +56,8 @@ INCLUDES = \
 	-I${top_builddir}/include
 
 xdmcpinclude_HEADERS = \
-	Xdmcp.h
+	include/X11/Xdmcp.h \
+	include/X11/Xdmcpconf.h
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = xdmcp.pc
