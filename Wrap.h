@@ -1,4 +1,4 @@
-/* $XdotOrg: xc/lib/Xdmcp/Wrap.h,v 1.4 2004/08/21 02:06:44 jg Exp $ */
+/* $XdotOrg: xc/lib/Xdmcp/Wrap.h,v 1.5 2004/08/22 01:02:25 jg Exp $ */
 /* $Xorg: Wrap.h,v 1.3 2000/08/17 19:45:50 cpqbld Exp $ */
 /*
  * header file for compatibility with something useful
