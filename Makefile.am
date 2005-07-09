@@ -1,6 +1,6 @@
 lib_LTLIBRARIES = libXdmcp.la
 
-libXdmcp_la_CFLAGS=-I${top_srcdir}/include $(XDMCP_CFLAGS)
+AM__CFLAGS=-I${top_srcdir}/include $(XDMCP_CFLAGS)
 libXdmcp_la_LDFLAGS = -version-info 6:0:0
 libXdmcp_la_LIBADD = $(XDMCP_LIBS)
 libXdmcp_la_SOURCES = \
