@@ -24,7 +24,7 @@ dnl
 dnl Process this file with autoconf to create configure.
 
 AC_PREREQ([2.57])
-AC_INIT(libXdmcp, [0.1.3], [keithp@keithp.com],libXdmcp)
+AC_INIT(libXdmcp, 0.99.0, [https://bugs.freedesktop.org/enter_bug.cgi?product=xorg],libXdmcp)
 AM_INIT_AUTOMAKE([dist-bzip2])
 AM_MAINTAINER_MODE
 
@@ -49,6 +49,8 @@ else
 fi
 
 AM_CONDITIONAL(HASXDMAUTH,test x$HASXDMAUTH = xyes)
+
+XORG_RELEASE_VERSION
 
 AC_OUTPUT([Makefile
            xdmcp.pc])
