@@ -61,4 +61,4 @@ xdmcpinclude_HEADERS = \
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = xdmcp.pc
 
-EXTRA_DIST = xdmcp.pc.in autogen.sh
+EXTRA_DIST = xdmcp.pc.in autogen.sh Wraphelp.c Wraphelp.README.crypto
