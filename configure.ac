@@ -43,7 +43,7 @@ PKG_CHECK_MODULES(XDMCP, xproto)
 AC_SUBST(XDMCP_CFLAGS)
 AC_SUBST(XDMCP_LIBS)
 
-if test -f Wraphelp.c; then
+if test -f ${srcdir}/Wraphelp.c; then
 	AC_DEFINE(HASXDMAUTH,1,[Has Wraphelp.c needed for XDM AUTH protocols])
 	HASXDMAUTH=yes
 else
