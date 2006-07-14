@@ -52,6 +52,10 @@ fi
 
 AM_CONDITIONAL(HASXDMAUTH,test x$HASXDMAUTH = xyes)
 
+dnl Allow checking code with lint, sparse, etc.
+XORG_WITH_LINT
+XORG_LINT_LIBRARY([Xdmcp])
+
 XORG_RELEASE_VERSION
 
 AC_OUTPUT([Makefile
