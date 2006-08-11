@@ -88,3 +88,5 @@ ChangeLog:
 
 dist-hook: ChangeLog
 endif MAINTAINER_MODE
+
+CLEANFILES=$(lintlib_DATA)
