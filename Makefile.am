@@ -79,3 +79,12 @@ lintlib_DATA = $(LINTLIB)
 $(LINTLIB): $(libXdmcp_la_SOURCES) $(nodist_libXdmcp_la_SOURCES)
 	$(LINT) -y -oXdmcp -x $(ALL_LINT_FLAGS) $(libXdmcp_la_SOURCES) $(nodist_libXdmcp_la_SOURCES)
 endif MAKE_LINT_LIB
+
+if MAINTAINER_MODE
+.PHONY: ChangeLog
+
+ChangeLog:
+	GIT_DIR=${srcdir}/.git git-log > ChangeLog
+
+dist-hook: ChangeLog
+endif MAINTAINER_MODE
