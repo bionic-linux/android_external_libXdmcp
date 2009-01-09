@@ -24,3 +24,7 @@ mkinstalldirs
 stamp-h1
 xdmcp.pc
 *~
+ChangeLog
+*.o
+libXdmcp-*.tar.*
+*.patch
