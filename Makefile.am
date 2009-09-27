@@ -61,7 +61,7 @@ xdmcpinclude_HEADERS = \
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = xdmcp.pc
 
-EXTRA_DIST = xdmcp.pc.in autogen.sh Wraphelp.c Wraphelp.README.crypto
+EXTRA_DIST = xdmcp.pc.in Wraphelp.c Wraphelp.README.crypto
 
 if LINT
 ALL_LINT_FLAGS=$(LINT_FLAGS) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
