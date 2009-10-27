@@ -30,9 +30,11 @@ AM_MAINTAINER_MODE
 
 AM_CONFIG_HEADER(config.h)
 
-# Require xorg-macros: XORG_WITH_LINT, XORG_CWARNFLAGS, XORG_CHANGELOG
-m4_ifndef([XORG_MACROS_VERSION], [AC_FATAL([must install xorg-macros 1.3 or later before running autoconf/autogen])])
+# Require xorg-macros: XORG_DEFAULT_OPTIONS
+m4_ifndef([XORG_MACROS_VERSION],
+          [m4_fatal([must install xorg-macros 1.3 or later before running autoconf/autogen])])
 XORG_MACROS_VERSION(1.3)
+XORG_DEFAULT_OPTIONS
 
 AC_PROG_CC
 AC_PROG_INSTALL
@@ -46,7 +48,6 @@ AC_CHECK_FUNCS([srand48 lrand48])
 AC_SEARCH_LIBS([recvfrom],[socket])
 
 PKG_CHECK_MODULES(XDMCP, xproto)
-XORG_DEFAULT_OPTIONS
 XDMCP_CFLAGS="$CWARNFLAGS $XDMCP_CFLAGS"
 AC_SUBST(XDMCP_CFLAGS)
 AC_SUBST(XDMCP_LIBS)
