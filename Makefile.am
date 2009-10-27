@@ -80,7 +80,6 @@ $(LINTLIB): $(libXdmcp_la_SOURCES) $(nodist_libXdmcp_la_SOURCES)
 	$(LINT) -y -oXdmcp -x $(ALL_LINT_FLAGS) $(libXdmcp_la_SOURCES) $(nodist_libXdmcp_la_SOURCES)
 endif MAKE_LINT_LIB
 
-MAINTAINERCLEANFILES=ChangeLog
 
 .PHONY: ChangeLog
 
