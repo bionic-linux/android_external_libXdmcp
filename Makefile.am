@@ -81,11 +81,14 @@ $(LINTLIB): $(libXdmcp_la_SOURCES) $(nodist_libXdmcp_la_SOURCES)
 endif MAKE_LINT_LIB
 
 
-.PHONY: ChangeLog
+.PHONY: ChangeLog INSTALL
+
+INSTALL:
+	$(INSTALL_CMD)
 
 ChangeLog:
 	$(CHANGELOG_CMD)
 
-dist-hook: ChangeLog
+dist-hook: ChangeLog INSTALL
 
 CLEANFILES=$(lintlib_DATA)
