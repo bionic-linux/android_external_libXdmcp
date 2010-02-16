@@ -48,9 +48,6 @@ AC_CHECK_FUNCS([srand48 lrand48])
 AC_SEARCH_LIBS([recvfrom],[socket])
 
 PKG_CHECK_MODULES(XDMCP, xproto)
-XDMCP_CFLAGS="$CWARNFLAGS $XDMCP_CFLAGS"
-AC_SUBST(XDMCP_CFLAGS)
-AC_SUBST(XDMCP_LIBS)
 
 if test -f ${srcdir}/Wraphelp.c; then
 	AC_DEFINE(HASXDMAUTH,1,[Has Wraphelp.c needed for XDM AUTH protocols])
