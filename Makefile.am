@@ -56,9 +56,6 @@ endif HASXDMAUTH
 
 xdmcpincludedir=$(includedir)/X11
 
-INCLUDES = \
-	-I${top_builddir}/include
-
 xdmcpinclude_HEADERS = \
 	include/X11/Xdmcp.h
 
