@@ -46,11 +46,7 @@ in this Software without prior written authorization from The Open Group.
 #ifdef WIN32
 #include <X11/Xwinsock.h>
 #else
-#ifndef Lynx
 #include <sys/socket.h>
-#else
-#include <socket.h>
-#endif /* !Lynx */
 #endif
 #endif
 
