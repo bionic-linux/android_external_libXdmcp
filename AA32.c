@@ -36,16 +36,21 @@ in this Software without prior written authorization from The Open Group.
 #include <X11/X.h>
 #include <X11/Xmd.h>
 #include <X11/Xdmcp.h>
+#include <limits.h>
 
 int
 XdmcpAllocARRAY32 (ARRAY32Ptr array, int length)
 {
     CARD32Ptr	newData;
 
+    /* length defined in ARRAY32 struct is a CARD8 */
+    if (length > UINT8_MAX)
+	return FALSE;
+
     newData = (CARD32Ptr) Xalloc (length * sizeof (CARD32));
     if (!newData)
 	return FALSE;
-    array->length = length;
+    array->length = (CARD8) length;
     array->data = newData;
     return TRUE;
 }

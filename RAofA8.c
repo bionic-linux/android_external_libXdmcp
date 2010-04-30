@@ -38,7 +38,7 @@ in this Software without prior written authorization from The Open Group.
 int
 XdmcpReadARRAYofARRAY8 (XdmcpBufferPtr buffer, ARRAYofARRAY8Ptr array)
 {
-    int	    i;
+    CARD8    i;
 
     if (!XdmcpReadCARD8 (buffer, &array->length)) {
 
@@ -56,7 +56,7 @@ XdmcpReadARRAYofARRAY8 (XdmcpBufferPtr buffer, ARRAYofARRAY8Ptr array)
     array->data = (ARRAY8 *) Xalloc (array->length * sizeof (ARRAY8));
     if (!array->data)
 	return FALSE;
-    for (i = 0; i < (int)array->length; i++)
+    for (i = 0; i < array->length; i++)
     {
 	if (!XdmcpReadARRAY8 (buffer, &array->data[i]))
 	{

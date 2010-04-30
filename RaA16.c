@@ -36,16 +36,20 @@ in this Software without prior written authorization from The Open Group.
 #include <X11/X.h>
 #include <X11/Xmd.h>
 #include <X11/Xdmcp.h>
+#include <limits.h>
 
 int
 XdmcpReallocARRAY16 (ARRAY16Ptr array, int length)
 {
     CARD16Ptr	newData;
 
+    /* length defined in ARRAY16 struct is a CARD8 */
+    if (length > UINT8_MAX)
+	return FALSE;
     newData = (CARD16Ptr) Xrealloc (array->data, length * sizeof (CARD16));
     if (!newData)
 	return FALSE;
-    array->length = length;
+    array->length = (CARD8) length;
     array->data = newData;
     return TRUE;
 }
