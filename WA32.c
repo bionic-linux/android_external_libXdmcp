@@ -36,7 +36,7 @@ in this Software without prior written authorization from The Open Group.
 #include <X11/Xdmcp.h>
 
 int
-XdmcpWriteARRAY32 (XdmcpBufferPtr buffer, ARRAY32Ptr array)
+XdmcpWriteARRAY32 (XdmcpBufferPtr buffer, const ARRAY32Ptr array)
 {
     int	i;
 

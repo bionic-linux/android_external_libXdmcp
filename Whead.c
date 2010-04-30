@@ -40,7 +40,7 @@ in this Software without prior written authorization from The Open Group.
 int
 XdmcpWriteHeader (
     XdmcpBufferPtr  buffer,
-    XdmcpHeaderPtr  header)
+    const XdmcpHeaderPtr  header)
 {
     BYTE    *newData;
 

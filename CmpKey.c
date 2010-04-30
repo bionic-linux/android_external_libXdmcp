@@ -38,7 +38,7 @@ in this Software without prior written authorization from The Open Group.
 #include <X11/Xdmcp.h>
 
 int
-XdmcpCompareKeys (XdmAuthKeyPtr a, XdmAuthKeyPtr b)
+XdmcpCompareKeys (const XdmAuthKeyPtr a, const XdmAuthKeyPtr b)
 {
     int	i;
 

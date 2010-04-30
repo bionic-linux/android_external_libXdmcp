@@ -36,7 +36,7 @@ in this Software without prior written authorization from The Open Group.
 #include <X11/Xdmcp.h>
 
 int
-XdmcpReadRemaining (XdmcpBufferPtr  buffer)
+XdmcpReadRemaining (const XdmcpBufferPtr  buffer)
 {
     return buffer->count - buffer->pointer;
 }
