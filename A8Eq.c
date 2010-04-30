@@ -38,12 +38,9 @@ in this Software without prior written authorization from The Open Group.
 int
 XdmcpARRAY8Equal (const ARRAY8Ptr array1, const ARRAY8Ptr array2)
 {
-    int	i;
-
     if (array1->length != array2->length)
 	return FALSE;
-    for (i = 0; i < (int)array1->length; i++)
-	if (array1->data[i] != array2->data[i])
-	    return FALSE;
+    if (memcmp(array1->data, array2->data, array1->length) != 0)
+	return FALSE;
     return TRUE;
 }
