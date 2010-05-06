@@ -36,7 +36,7 @@ in this Software without prior written authorization from The Open Group.
 #include <X11/X.h>
 #include <X11/Xmd.h>
 #include <X11/Xdmcp.h>
-#include <limits.h>
+#include <stdint.h>
 
 int
 XdmcpReallocARRAY32 (ARRAY32Ptr array, int length)
