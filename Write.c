@@ -31,6 +31,7 @@ in this Software without prior written authorization from The Open Group.
 #include <X11/X.h>
 #include <X11/Xmd.h>
 #include <X11/Xdmcp.h>
+#include <stdlib.h>
 
 int
 XdmcpWriteHeader (
@@ -41,10 +42,10 @@ XdmcpWriteHeader (
 
     if ((int)buffer->size < 6 + (int)header->length)
     {
-	newData = (BYTE *) Xalloc (XDM_MAX_MSGLEN * sizeof (BYTE));
+	newData = (BYTE *) malloc(XDM_MAX_MSGLEN * sizeof (BYTE));
 	if (!newData)
 	    return FALSE;
-	Xfree ((unsigned long *)(buffer->data));
+	free((unsigned long *)(buffer->data));
 	buffer->data = newData;
 	buffer->size = XDM_MAX_MSGLEN;
     }

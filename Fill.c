@@ -34,6 +34,7 @@ in this Software without prior written authorization from The Open Group.
 #include <X11/X.h>
 #include <X11/Xmd.h>
 #include <X11/Xdmcp.h>
+#include <stdlib.h>
 
 #ifdef STREAMSCONN
 #include <tiuser.h>
@@ -56,10 +57,10 @@ XdmcpFill (int fd, XdmcpBufferPtr buffer, XdmcpNetaddr from, int *fromlen)
 
     if (buffer->size < XDM_MAX_MSGLEN)
     {
-	newBuf = (BYTE *) Xalloc (XDM_MAX_MSGLEN);
+	newBuf = (BYTE *) malloc(XDM_MAX_MSGLEN);
 	if (newBuf)
 	{
-	    Xfree (buffer->data);
+	    free(buffer->data);
 	    buffer->data = newBuf;
 	    buffer->size = XDM_MAX_MSGLEN;
 	}

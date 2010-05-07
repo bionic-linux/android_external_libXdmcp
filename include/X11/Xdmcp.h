@@ -164,12 +164,6 @@ extern void XdmcpUnwrap(unsigned char *input, unsigned char *wrapper, unsigned c
 #define FALSE	0
 #endif
 
-#if !defined(Xalloc) && !defined(xalloc) && !defined(Xrealloc)
-extern void *Xalloc (unsigned long amount);
-extern void *Xrealloc (void *old, unsigned long amount);
-extern void Xfree(void *old);
-#endif
-
 extern int XdmcpCompareKeys (const XdmAuthKeyPtr a, const XdmAuthKeyPtr b);
 
 extern int XdmcpAllocARRAY16 (ARRAY16Ptr array, int length);

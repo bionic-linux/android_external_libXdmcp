@@ -31,6 +31,7 @@ in this Software without prior written authorization from The Open Group.
 #include <X11/X.h>
 #include <X11/Xmd.h>
 #include <X11/Xdmcp.h>
+#include <stdlib.h>
 
 int
 XdmcpReadHeader (XdmcpBufferPtr buffer, XdmcpHeaderPtr header)
@@ -56,7 +57,7 @@ XdmcpReadARRAY8 (XdmcpBufferPtr buffer, ARRAY8Ptr array)
     if (!XdmcpReadCARD16 (buffer, &array->length)) {
 
 	/* Must set array->data to NULL to guarantee safe call of
- 	 * XdmcpDisposeARRAY*(array) (which calls Xfree(array->data));
+	 * XdmcpDisposeARRAY*(array) (which calls free(array->data));
          * see defect 7329 */
  	array->data = NULL;
 	return FALSE;
@@ -66,14 +67,14 @@ XdmcpReadARRAY8 (XdmcpBufferPtr buffer, ARRAY8Ptr array)
 	array->data = NULL;
 	return TRUE;
     }
-    array->data = (CARD8 *) Xalloc (array->length * sizeof (CARD8));
+    array->data = (CARD8 *) malloc(array->length * sizeof (CARD8));
     if (!array->data)
 	return FALSE;
     for (i = 0; i < (int)array->length; i++)
     {
 	if (!XdmcpReadCARD8 (buffer, &array->data[i]))
 	{
-	    Xfree (array->data);
+	    free(array->data);
 	    array->data = NULL;
 	    array->length = 0;
 	    return FALSE;
@@ -90,7 +91,7 @@ XdmcpReadARRAY16 (XdmcpBufferPtr buffer, ARRAY16Ptr array)
     if (!XdmcpReadCARD8 (buffer, &array->length)) {
 
 	/* Must set array->data to NULL to guarantee safe call of
- 	 * XdmcpDisposeARRAY*(array) (which calls Xfree(array->data));
+	 * XdmcpDisposeARRAY*(array) (which calls free(array->data));
          * see defect 7329 */
 	array->data = NULL;
 	return FALSE;
@@ -100,14 +101,14 @@ XdmcpReadARRAY16 (XdmcpBufferPtr buffer, ARRAY16Ptr array)
 	array->data = NULL;
 	return TRUE;
     }
-    array->data = (CARD16 *) Xalloc (array->length * sizeof (CARD16));
+    array->data = (CARD16 *) malloc(array->length * sizeof (CARD16));
     if (!array->data)
 	return FALSE;
     for (i = 0; i < (int)array->length; i++)
     {
 	if (!XdmcpReadCARD16 (buffer, &array->data[i]))
 	{
-	    Xfree (array->data);
+	    free(array->data);
 	    array->data = NULL;
 	    array->length = 0;
 	    return FALSE;
@@ -124,7 +125,7 @@ XdmcpReadARRAY32 (XdmcpBufferPtr buffer, ARRAY32Ptr array)
     if (!XdmcpReadCARD8 (buffer, &array->length)) {
 
 	/* Must set array->data to NULL to guarantee safe call of
- 	 * XdmcpDisposeARRAY*(array) (which calls Xfree(array->data));
+	 * XdmcpDisposeARRAY*(array) (which calls free(array->data));
          * see defect 7329 */
 	array->data = NULL;
 	return FALSE;
@@ -134,14 +135,14 @@ XdmcpReadARRAY32 (XdmcpBufferPtr buffer, ARRAY32Ptr array)
 	array->data = NULL;
 	return TRUE;
     }
-    array->data = (CARD32 *) Xalloc (array->length * sizeof (CARD32));
+    array->data = (CARD32 *) malloc(array->length * sizeof (CARD32));
     if (!array->data)
 	return FALSE;
     for (i = 0; i < (int)array->length; i++)
     {
 	if (!XdmcpReadCARD32 (buffer, &array->data[i]))
 	{
-	    Xfree (array->data);
+	    free(array->data);
 	    array->data = NULL;
 	    array->length = 0;
 	    return FALSE;
@@ -158,8 +159,8 @@ XdmcpReadARRAYofARRAY8 (XdmcpBufferPtr buffer, ARRAYofARRAY8Ptr array)
     if (!XdmcpReadCARD8 (buffer, &array->length)) {
 
 	/* Must set array->data to NULL to guarantee safe call of
- 	 * XdmcpDisposeARRAY*(array) (which calls Xfree(array->data));
-         * see defect 7329 */
+	 * XdmcpDisposeARRAY*(array) (which calls free(array->data));
+	 * see defect 7329 */
 	array->data = NULL;
 	return FALSE;
     }
@@ -168,7 +169,7 @@ XdmcpReadARRAYofARRAY8 (XdmcpBufferPtr buffer, ARRAYofARRAY8Ptr array)
 	array->data = NULL;
 	return TRUE;
     }
-    array->data = (ARRAY8 *) Xalloc (array->length * sizeof (ARRAY8));
+    array->data = (ARRAY8 *) malloc(array->length * sizeof (ARRAY8));
     if (!array->data)
 	return FALSE;
     for (i = 0; i < array->length; i++)
@@ -178,7 +179,7 @@ XdmcpReadARRAYofARRAY8 (XdmcpBufferPtr buffer, ARRAYofARRAY8Ptr array)
 
 	    /* All arrays allocated thus far in the loop must be freed
 	     * if there is an error in the read.
-             * See Defect 7328 */
+	     * See Defect 7328 */
 	    array->length = i;
 	    XdmcpDisposeARRAYofARRAY8(array);
 	    return FALSE;

@@ -32,6 +32,25 @@ in this Software without prior written authorization from The Open Group.
 #include <X11/Xmd.h>
 #include <X11/Xdmcp.h>
 #include <stdint.h>
+#include <stdlib.h>
+
+/*
+ * This variant of malloc does not return NULL if zero size is passed into.
+ */
+static void *
+xmalloc(size_t size)
+{
+    return malloc(size ? size : 1);
+}
+
+/*
+ * This variant of realloc does not return NULL if zero size is passed into
+ */
+static void *
+xrealloc(void *ptr, size_t size)
+{
+    return realloc(ptr, size ? size : 1);
+}
 
 int
 XdmcpAllocARRAY8 (ARRAY8Ptr array, int length)
@@ -42,7 +61,7 @@ XdmcpAllocARRAY8 (ARRAY8Ptr array, int length)
     if (length > UINT16_MAX)
 	return FALSE;
 
-    newData = (CARD8Ptr) Xalloc (length * sizeof (CARD8));
+    newData = (CARD8Ptr) xmalloc(length * sizeof (CARD8));
     if (!newData)
 	return FALSE;
     array->length = (CARD16) length;
@@ -59,7 +78,7 @@ XdmcpAllocARRAY16 (ARRAY16Ptr array, int length)
     if (length > UINT8_MAX)
 	return FALSE;
 
-    newData = (CARD16Ptr) Xalloc (length * sizeof (CARD16));
+    newData = (CARD16Ptr) xmalloc(length * sizeof (CARD16));
     if (!newData)
 	return FALSE;
     array->length = (CARD8) length;
@@ -76,7 +95,7 @@ XdmcpAllocARRAY32 (ARRAY32Ptr array, int length)
     if (length > UINT8_MAX)
 	return FALSE;
 
-    newData = (CARD32Ptr) Xalloc (length * sizeof (CARD32));
+    newData = (CARD32Ptr) xmalloc(length * sizeof (CARD32));
     if (!newData)
 	return FALSE;
     array->length = (CARD8) length;
@@ -93,7 +112,7 @@ XdmcpAllocARRAYofARRAY8 (ARRAYofARRAY8Ptr array, int length)
     if (length > UINT8_MAX)
 	return FALSE;
 
-    newData = (ARRAY8Ptr) Xalloc (length * sizeof (ARRAY8));
+    newData = (ARRAY8Ptr) xmalloc(length * sizeof (ARRAY8));
     if (!newData)
 	return FALSE;
     array->length = (CARD8) length;
@@ -115,7 +134,7 @@ int
 XdmcpCopyARRAY8 (const ARRAY8Ptr src, ARRAY8Ptr dst)
 {
     dst->length = src->length;
-    dst->data = (CARD8 *) Xalloc (dst->length * sizeof (CARD8));
+    dst->data = (CARD8 *) xmalloc(dst->length * sizeof (CARD8));
     if (!dst->data)
 	return FALSE;
     memmove (dst->data, src->data, src->length * sizeof (CARD8));
@@ -131,7 +150,7 @@ XdmcpReallocARRAY8 (ARRAY8Ptr array, int length)
     if (length > UINT16_MAX)
 	return FALSE;
 
-    newData = (CARD8Ptr) Xrealloc (array->data, length * sizeof (CARD8));
+    newData = (CARD8Ptr) xrealloc(array->data, length * sizeof (CARD8));
     if (!newData)
 	return FALSE;
     array->length = (CARD16) length;
@@ -148,7 +167,7 @@ XdmcpReallocARRAYofARRAY8 (ARRAYofARRAY8Ptr array, int length)
     if (length > UINT8_MAX)
 	return FALSE;
 
-    newData = (ARRAY8Ptr) Xrealloc (array->data, length * sizeof (ARRAY8));
+    newData = (ARRAY8Ptr) xrealloc(array->data, length * sizeof (ARRAY8));
     if (!newData)
 	return FALSE;
     array->length = (CARD8) length;
@@ -164,7 +183,7 @@ XdmcpReallocARRAY16 (ARRAY16Ptr array, int length)
     /* length defined in ARRAY16 struct is a CARD8 */
     if (length > UINT8_MAX)
 	return FALSE;
-    newData = (CARD16Ptr) Xrealloc (array->data, length * sizeof (CARD16));
+    newData = (CARD16Ptr) xrealloc(array->data, length * sizeof (CARD16));
     if (!newData)
 	return FALSE;
     array->length = (CARD8) length;
@@ -181,7 +200,7 @@ XdmcpReallocARRAY32 (ARRAY32Ptr array, int length)
     if (length > UINT8_MAX)
 	return FALSE;
 
-    newData = (CARD32Ptr) Xrealloc (array->data, length * sizeof (CARD32));
+    newData = (CARD32Ptr) xrealloc(array->data, length * sizeof (CARD32));
     if (!newData)
 	return FALSE;
     array->length = (CARD8) length;
@@ -192,7 +211,7 @@ XdmcpReallocARRAY32 (ARRAY32Ptr array, int length)
 void
 XdmcpDisposeARRAY8 (ARRAY8Ptr array)
 {
-    if (array->data != NULL) Xfree (array->data);
+    free(array->data);
     array->length = 0;
     array->data = NULL;
 }
@@ -200,7 +219,7 @@ XdmcpDisposeARRAY8 (ARRAY8Ptr array)
 void
 XdmcpDisposeARRAY16 (ARRAY16Ptr array)
 {
-    if (array->data != NULL) Xfree (array->data);
+    free(array->data);
     array->length = 0;
     array->data = NULL;
 }
@@ -208,7 +227,7 @@ XdmcpDisposeARRAY16 (ARRAY16Ptr array)
 void
 XdmcpDisposeARRAY32 (ARRAY32Ptr array)
 {
-    if (array->data != NULL) Xfree (array->data);
+    free(array->data);
     array->length = 0;
     array->data = NULL;
 }
@@ -221,7 +240,7 @@ XdmcpDisposeARRAYofARRAY8 (ARRAYofARRAY8Ptr array)
     if (array->data != NULL) {
 	for (i = 0; i < (int)array->length; i++)
 	    XdmcpDisposeARRAY8 (&array->data[i]);
-	Xfree (array->data);
+	free(array->data);
     }
     array->length = 0;
     array->data = NULL;
