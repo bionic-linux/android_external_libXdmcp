@@ -1,7 +1,4 @@
 /*
- * $Xorg: Fill.c,v 1.4 2001/02/09 02:03:48 xorgcvs Exp $
- *
- * 
 Copyright 1989, 1998  The Open Group
 
 Permission to use, copy, modify, distribute, and sell this software and its
@@ -26,8 +23,6 @@ in this Software without prior written authorization from The Open Group.
  * *
  * Author:  Keith Packard, MIT X Consortium
  */
-
-/* $XFree86: xc/lib/Xdmcp/Fill.c,v 3.8 2001/07/23 13:15:42 dawes Exp $ */
 
 #ifdef WIN32
 #define _WILLWINSOCK_
