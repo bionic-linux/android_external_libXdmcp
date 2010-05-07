@@ -1,7 +1,4 @@
 /*
- * $Xorg: Whead.c,v 1.4 2001/02/09 02:03:49 xorgcvs Exp $
- *
- * 
 Copyright 1989, 1998  The Open Group
 
 Permission to use, copy, modify, distribute, and sell this software and its
@@ -23,11 +20,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 Except as contained in this notice, the name of The Open Group shall not be
 used in advertising or otherwise to promote the sale, use or other dealings
 in this Software without prior written authorization from The Open Group.
- * *
+ *
  * Author:  Keith Packard, MIT X Consortium
  */
-
-/* $XFree86: xc/lib/Xdmcp/Whead.c,v 1.3 2001/01/17 19:42:44 dawes Exp $ */
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -59,6 +54,97 @@ XdmcpWriteHeader (
     if (!XdmcpWriteCARD16 (buffer, header->opcode))
 	return FALSE;
     if (!XdmcpWriteCARD16 (buffer, header->length))
+	return FALSE;
+    return TRUE;
+}
+
+int
+XdmcpWriteARRAY8 (XdmcpBufferPtr buffer, const ARRAY8Ptr array)
+{
+    int	i;
+
+    if (!XdmcpWriteCARD16 (buffer, array->length))
+	return FALSE;
+    for (i = 0; i < (int)array->length; i++)
+	if (!XdmcpWriteCARD8 (buffer, array->data[i]))
+	    return FALSE;
+    return TRUE;
+}
+
+int
+XdmcpWriteARRAY16 (XdmcpBufferPtr buffer, const ARRAY16Ptr array)
+{
+    int	i;
+
+    if (!XdmcpWriteCARD8 (buffer, array->length))
+	return FALSE;
+    for (i = 0; i < (int)array->length; i++)
+	if (!XdmcpWriteCARD16 (buffer, array->data[i]))
+	    return FALSE;
+    return TRUE;
+}
+
+int
+XdmcpWriteARRAY32 (XdmcpBufferPtr buffer, const ARRAY32Ptr array)
+{
+    int	i;
+
+    if (!XdmcpWriteCARD8 (buffer, array->length))
+	return FALSE;
+    for (i = 0; i < (int)array->length; i++)
+	if (!XdmcpWriteCARD32 (buffer, array->data[i]))
+	    return FALSE;
+    return TRUE;
+}
+
+int
+XdmcpWriteARRAYofARRAY8 (XdmcpBufferPtr buffer, ARRAYofARRAY8Ptr array)
+{
+    int	i;
+
+    if (!XdmcpWriteCARD8 (buffer, array->length))
+	return FALSE;
+    for (i = 0; i < (int)array->length; i++)
+	if (!XdmcpWriteARRAY8 (buffer, &array->data[i]))
+	    return FALSE;
+    return TRUE;
+}
+
+int
+XdmcpWriteCARD8 (
+    XdmcpBufferPtr  buffer,
+    unsigned	    value)
+{
+    if (buffer->pointer >= buffer->size)
+	return FALSE;
+    buffer->data[buffer->pointer++] = (BYTE) value;
+    return TRUE;
+}
+
+int
+XdmcpWriteCARD16 (
+    XdmcpBufferPtr  buffer,
+    unsigned	    value)
+{
+    if (!XdmcpWriteCARD8 (buffer, value >> 8))
+	return FALSE;
+    if (!XdmcpWriteCARD8 (buffer, value & 0xff))
+	return FALSE;
+    return TRUE;
+}
+
+int
+XdmcpWriteCARD32 (
+    XdmcpBufferPtr  buffer,
+    unsigned	    value)
+{
+    if (!XdmcpWriteCARD8 (buffer, value >> 24))
+	return FALSE;
+    if (!XdmcpWriteCARD8 (buffer, (value >> 16) & 0xff))
+	return FALSE;
+    if (!XdmcpWriteCARD8 (buffer, (value >> 8) & 0xff))
+	return FALSE;
+    if (!XdmcpWriteCARD8 (buffer, value & 0xff))
 	return FALSE;
     return TRUE;
 }
