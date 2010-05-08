@@ -54,11 +54,14 @@ XdmcpReadARRAY8 (XdmcpBufferPtr buffer, ARRAY8Ptr array)
 {
     int	    i;
 
+    /*
+     * When returning FALSE, guarantee that array->data = 0.
+     * This allows the user to safely call XdmcpDisposeARRAY8(array)
+     * regardless of the return value below.
+     * Note that XdmcpDisposeARRAY*(array) will call free(array->data),
+     * so we must guarantee that array->data is NULL or a malloced pointer.
+     */
     if (!XdmcpReadCARD16 (buffer, &array->length)) {
-
-	/* Must set array->data to NULL to guarantee safe call of
-	 * XdmcpDisposeARRAY*(array) (which calls free(array->data));
-         * see defect 7329 */
  	array->data = NULL;
 	return FALSE;
     }
@@ -88,11 +91,14 @@ XdmcpReadARRAY16 (XdmcpBufferPtr buffer, ARRAY16Ptr array)
 {
     int	    i;
 
+    /*
+     * When returning FALSE, guarantee that array->data = 0.
+     * This allows the user to safely call XdmcpDisposeARRAY16(array)
+     * regardless of the return value below.
+     * Note that XdmcpDisposeARRAY*(array) will call free(array->data),
+     * so we must guarantee that array->data is NULL or a malloced pointer.
+     */
     if (!XdmcpReadCARD8 (buffer, &array->length)) {
-
-	/* Must set array->data to NULL to guarantee safe call of
-	 * XdmcpDisposeARRAY*(array) (which calls free(array->data));
-         * see defect 7329 */
 	array->data = NULL;
 	return FALSE;
     }
@@ -122,11 +128,14 @@ XdmcpReadARRAY32 (XdmcpBufferPtr buffer, ARRAY32Ptr array)
 {
     int	    i;
 
+    /*
+     * When returning FALSE, guarantee that array->data = 0.
+     * This allows the user to safely call XdmcpDisposeARRAY32(array)
+     * regardless of the return value below.
+     * Note that XdmcpDisposeARRAY*(array) will call free(array->data),
+     * so we must guarantee that array->data is NULL or a malloced pointer.
+     */
     if (!XdmcpReadCARD8 (buffer, &array->length)) {
-
-	/* Must set array->data to NULL to guarantee safe call of
-	 * XdmcpDisposeARRAY*(array) (which calls free(array->data));
-         * see defect 7329 */
 	array->data = NULL;
 	return FALSE;
     }
@@ -156,11 +165,14 @@ XdmcpReadARRAYofARRAY8 (XdmcpBufferPtr buffer, ARRAYofARRAY8Ptr array)
 {
     CARD8    i;
 
+    /*
+     * When returning FALSE, guarantee that array->data = 0.
+     * This allows the user to safely call XdmcpDisposeARRAYofARRAY8(array)
+     * regardless of the return value below.
+     * Note that XdmcpDisposeARRAY*(array) will call free(array->data),
+     * so we must guarantee that array->data is NULL or a malloced pointer.
+     */
     if (!XdmcpReadCARD8 (buffer, &array->length)) {
-
-	/* Must set array->data to NULL to guarantee safe call of
-	 * XdmcpDisposeARRAY*(array) (which calls free(array->data));
-	 * see defect 7329 */
 	array->data = NULL;
 	return FALSE;
     }
@@ -176,10 +188,12 @@ XdmcpReadARRAYofARRAY8 (XdmcpBufferPtr buffer, ARRAYofARRAY8Ptr array)
     {
 	if (!XdmcpReadARRAY8 (buffer, &array->data[i]))
 	{
-
-	    /* All arrays allocated thus far in the loop must be freed
-	     * if there is an error in the read.
-	     * See Defect 7328 */
+	    /*
+	     * We must free all of the arrays allocated thus far in the loop
+	     * and free array->data and finally set array->data = 0;
+	     * The easiest way to do this is to reset the length and call
+	     * XdmcpDisposeARRAYofARRAY8(array).
+	     */
 	    array->length = i;
 	    XdmcpDisposeARRAYofARRAY8(array);
 	    return FALSE;
