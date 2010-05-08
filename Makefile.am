@@ -1,7 +1,7 @@
 lib_LTLIBRARIES = libXdmcp.la
 
+AM_CPPFLAGS = -I${top_srcdir}/include
 AM_CFLAGS = \
-	-I${top_srcdir}/include \
 	$(XDMCP_CFLAGS) \
 	$(CWARNFLAGS)
 
