@@ -19,8 +19,8 @@ Massachusetts Institute of Technology
    </author>
    </authorgroup>
 
-   <copyright><year>1989</year><holder>The Open Group</holder></copyright>
-   <copyright><year>2004</year><holder>The Open Group</holder></copyright>
+   <copyright><year>1989</year><year>2004</year>
+     <holder>The Open Group</holder></copyright>
    <productnumber>X Version 11, Release 6.8</productnumber>
 
 <legalnotice>
@@ -59,9 +59,7 @@ in this Software without prior written authorization from The Open Group.
 </legalnotice>
 </bookinfo>
 
-<chapter id="TITLE">
-<title>TITLE</title>
-<sect1 id="Purpose_and_Goals">
+<chapter id="Purpose_and_Goals">
 <title>Purpose and Goals</title>
 <!-- .XS -->
 <!-- (SN Purpose and Goals -->
@@ -179,9 +177,9 @@ XDMCP must be flexible enough to accomodate a variety of security mechanisms.
     </para>
   </listitem>
 </itemizedlist>
-</sect1>
+</chapter>
 
-<sect1 id="Overview_of_the_Protocol">
+<chapter id="Overview_of_the_Protocol">
 <title>Overview of the Protocol</title>
 <!-- .XS -->
 <!-- (SN Overview of the Protocol -->
@@ -235,9 +233,9 @@ when the Manager has received (at least one copy of) a packet.  On the
 Manager side, this means that any packet may be received more than once (if
 the response was lost) and duplicates must be ignored.
 </para>
-</sect1>
+</chapter>
 
-<sect1 id="Data_Types">
+<chapter id="Data_Types">
 <title>Data Types</title>
 <!-- .XS -->
 <!-- (SN Data Types -->
@@ -315,9 +313,9 @@ number of ARRAY8 values to follow.
   </tbody>
   </tgroup>
 </informaltable>
-</sect1>
+</chapter>
 
-<sect1 id="Packet_Format">
+<chapter id="Packet_Format">
 <title>Packet Format</title>
 <!-- .XS -->
 <!-- (SN Packet Format -->
@@ -450,9 +448,9 @@ the Session ID should match the value sent in the preceding
     </para>
   </listitem>
 </orderedlist>
-</sect1>
+</chapter>
 
-<sect1 id="Protocol">
+<chapter id="Protocol">
 <title>Protocol</title>
 <!-- .XS -->
 <!-- (SN Protocol -->
@@ -2805,9 +2803,9 @@ determine the status of the manager.
   </tgroup>
 </informaltable>
 
-</sect1>
+</chapter>
 
-<sect1 id="Session_Termination">
+<chapter id="Session_Termination">
 <title>Session Termination</title>
 <para>
 When the session is over, the initial connection with the display (the one
@@ -2835,9 +2833,9 @@ should not be fixed between loading an otherwise idle system with spurious
 <function>KeepAlive</function>
 packets and not noticing that the manager host is down for a long time.
 </para>
-</sect1>
+</chapter>
 
-<sect1 id="State_Diagrams">
+<chapter id="State_Diagrams">
 <title>State Diagrams</title>
 <!-- .XS -->
 <!-- (SN State Diagrams -->
@@ -3355,9 +3353,9 @@ Send <function>Alive</function> packet containing current status
   </varlistentry>
 </variablelist>
 
-</sect1>
+</chapter>
 
-<sect1 id="Protocol_Encoding">
+<chapter id="Protocol_Encoding">
 <title>Protocol Encoding</title>
 <para>
 When XDMCP is implemented on top of the Internet User Datagram Protocol (UDP),
@@ -3617,9 +3615,9 @@ Note that these three packets are identical except for the opcode field.
      1     CARD8      Session Running (0: not running 1: running)
      4     CARD32     Session ID (0: not running)
 </literallayout>
-</sect1>
+</chapter>
 
-<sect1 id="Display_Class_Format">
+<chapter id="Display_Class_Format">
 <title>Display Class Format</title>
 <!-- .XS -->
 <!-- (SN Display Class Format -->
@@ -3652,9 +3650,9 @@ This string should be documented in the users manual for the
 particular device and  should probably not be specifiable by the
 display user to avoid unexpected configuration errors.
 </para>
-</sect1>
+</chapter>
 
-<sect1 id="Manufacturer_Display_ID_Format">
+<chapter id="Manufacturer_Display_ID_Format">
 <title>Manufacturer Display ID Format</title>
 <!-- .XS -->
 <!-- (SN Manufacturer Display ID Format -->
@@ -3699,9 +3697,9 @@ Manufacturer Display ID and the private key in the documentation set.
 This information should not be modifiable by the display user.
 </para>
 
-</sect1>
+</chapter>
 
-<sect1 id="Authentication">
+<chapter id="Authentication">
 <title>Authentication</title>
 <!-- .XS -->
 <!-- (SN Authentication -->
@@ -3890,6 +3888,5 @@ in the last 1200 seconds (20 minutes).
     </para>
   </listitem>
 </itemizedlist>
-</sect1>
 </chapter>
 </book>
