@@ -28,11 +28,11 @@
    <authorgroup>
    <author>
       <firstname>Keith</firstname><surname>Packard</surname>
-      <affiliation><orgname>
-X Consortium,
-Laboratory for Computer Science,
-Massachusetts Institute of Technology
-      </orgname></affiliation>
+      <affiliation>
+        <orgname>Massachusetts Institute of Technology</orgname>
+        <orgdiv>Laboratory for Computer Science</orgdiv>
+        <orgdiv>X Consortium</orgdiv>
+      </affiliation>
    </author>
    </authorgroup>
 
