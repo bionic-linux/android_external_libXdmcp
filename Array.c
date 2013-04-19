@@ -145,12 +145,8 @@ XdmcpARRAY8Equal (const ARRAY8Ptr array1, const ARRAY8Ptr array2)
 int
 XdmcpCopyARRAY8 (const ARRAY8Ptr src, ARRAY8Ptr dst)
 {
-    dst->data = (CARD8 *) xmalloc(src->length * sizeof (CARD8));
-    if (!dst->data) {
-	dst->length = 0;
+    if (!XdmcpAllocARRAY8(dst, src->length))
 	return FALSE;
-    }
-    dst->length = src->length;
     memmove (dst->data, src->data, src->length * sizeof (CARD8));
     return TRUE;
 }
