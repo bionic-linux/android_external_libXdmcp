@@ -65,7 +65,7 @@ int
 XdmcpAllocARRAY8 (ARRAY8Ptr array, int length)
 {
     /* length defined in ARRAY8 struct is a CARD16 (not CARD8 like the rest) */
-    if (length > UINT16_MAX)
+    if ((length > UINT16_MAX) || (length < 0))
         array->data = NULL;
     else
         array->data = xmalloc(length * sizeof (CARD8));
@@ -82,7 +82,7 @@ int
 XdmcpAllocARRAY16 (ARRAY16Ptr array, int length)
 {
     /* length defined in ARRAY16 struct is a CARD8 */
-    if (length > UINT8_MAX)
+    if ((length > UINT8_MAX) || (length < 0))
         array->data = NULL;
     else
         array->data = xmalloc(length * sizeof (CARD16));
@@ -99,7 +99,7 @@ int
 XdmcpAllocARRAY32 (ARRAY32Ptr array, int length)
 {
     /* length defined in ARRAY32 struct is a CARD8 */
-    if (length > UINT8_MAX)
+    if ((length > UINT8_MAX) || (length < 0))
         array->data = NULL;
     else
         array->data = xmalloc(length * sizeof (CARD32));
@@ -116,7 +116,7 @@ int
 XdmcpAllocARRAYofARRAY8 (ARRAYofARRAY8Ptr array, int length)
 {
     /* length defined in ARRAYofARRAY8 struct is a CARD8 */
-    if (length > UINT8_MAX)
+    if ((length > UINT8_MAX) || (length < 0))
         array->data = NULL;
     else
         /*
@@ -159,7 +159,7 @@ XdmcpReallocARRAY8 (ARRAY8Ptr array, int length)
     CARD8Ptr	newData;
 
     /* length defined in ARRAY8 struct is a CARD16 (not CARD8 like the rest) */
-    if (length > UINT16_MAX)
+    if ((length > UINT16_MAX) || (length < 0))
 	return FALSE;
 
     newData = (CARD8Ptr) xrealloc(array->data, length * sizeof (CARD8));
@@ -176,7 +176,7 @@ XdmcpReallocARRAYofARRAY8 (ARRAYofARRAY8Ptr array, int length)
     ARRAY8Ptr	newData;
 
     /* length defined in ARRAYofARRAY8 struct is a CARD8 */
-    if (length > UINT8_MAX)
+    if ((length > UINT8_MAX) || (length < 0))
 	return FALSE;
 
     newData = (ARRAY8Ptr) xrealloc(array->data, length * sizeof (ARRAY8));
@@ -196,7 +196,7 @@ XdmcpReallocARRAY16 (ARRAY16Ptr array, int length)
     CARD16Ptr	newData;
 
     /* length defined in ARRAY16 struct is a CARD8 */
-    if (length > UINT8_MAX)
+    if ((length > UINT8_MAX) || (length < 0))
 	return FALSE;
     newData = (CARD16Ptr) xrealloc(array->data, length * sizeof (CARD16));
     if (!newData)
@@ -212,7 +212,7 @@ XdmcpReallocARRAY32 (ARRAY32Ptr array, int length)
     CARD32Ptr	newData;
 
     /* length defined in ARRAY32 struct is a CARD8 */
-    if (length > UINT8_MAX)
+    if ((length > UINT8_MAX) || (length < 0))
 	return FALSE;
 
     newData = (CARD32Ptr) xrealloc(array->data, length * sizeof (CARD32));

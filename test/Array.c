@@ -52,6 +52,10 @@ TestAllocOversizeArrays(void)
     TestAllocOversize(ARRAY16, UINT8_MAX + 1);
     TestAllocOversize(ARRAY32, UINT8_MAX + 1);
     TestAllocOversize(ARRAYofARRAY8, UINT8_MAX + 1);
+    TestAllocOversize(ARRAY8, -1);
+    TestAllocOversize(ARRAY16, -1);
+    TestAllocOversize(ARRAY32, -1);
+    TestAllocOversize(ARRAYofARRAY8, -1);
 }
 
 static void
