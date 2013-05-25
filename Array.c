@@ -44,6 +44,15 @@ xmalloc(size_t size)
 }
 
 /*
+ * This variant of calloc does not return NULL if zero count is passed into.
+ */
+static void *
+xcalloc(size_t n, size_t size)
+{
+    return calloc(n ? n : 1, size);
+}
+
+/*
  * This variant of realloc does not return NULL if zero size is passed into
  */
 static void *
@@ -110,7 +119,12 @@ XdmcpAllocARRAYofARRAY8 (ARRAYofARRAY8Ptr array, int length)
     if (length > UINT8_MAX)
         array->data = NULL;
     else
-        array->data = xmalloc(length * sizeof (ARRAY8));
+        /*
+         * Use calloc to ensure the pointers are cleared out so we
+         * don't try to free garbage if XdmcpDisposeARRAYofARRAY8()
+         * is called before the caller sets them to valid pointers.
+         */
+        array->data = xcalloc(length, sizeof (ARRAY8));
 
     if (array->data == NULL) {
 	array->length = 0;
@@ -168,6 +182,9 @@ XdmcpReallocARRAYofARRAY8 (ARRAYofARRAY8Ptr array, int length)
     newData = (ARRAY8Ptr) xrealloc(array->data, length * sizeof (ARRAY8));
     if (!newData)
 	return FALSE;
+    if (length > array->length)
+        memset(newData + array->length, 0,
+               (length - array->length) * sizeof (ARRAY8));
     array->length = (CARD8) length;
     array->data = newData;
     return TRUE;

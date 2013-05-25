@@ -23,6 +23,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <assert.h>
 #include <X11/Xdmcp.h>
 #include <inttypes.h>
@@ -53,10 +54,35 @@ TestAllocOversizeArrays(void)
     TestAllocOversize(ARRAYofARRAY8, UINT8_MAX + 1);
 }
 
+static void
+TestZeroFillARRAYofARRAY8(void)
+{
+    ARRAYofARRAY8 aa;
+    int result;
+    char *noise;
+
+    printf("Checking XdmcpAllocARRAYofARRAY8 zero fills array...\n");
+    /* prefill memory with junk - hopefully next malloc will pick up some */
+    noise = malloc(32 * sizeof(ARRAY8));
+    memset(noise, 0xdeadbeef, 32 * sizeof(ARRAY8));
+    free(noise);
+    result = XdmcpAllocARRAYofARRAY8(&aa, 32);
+    assert(result == TRUE);
+    assert(aa.length == 32);
+    assert(aa.data[4].data == NULL);
+    printf("Checking XdmcpReallocARRAYofARRAY8 zero fills array...\n");
+    result = XdmcpAllocARRAYofARRAY8(&aa, 48);
+    assert(result == TRUE);
+    assert(aa.length == 48);
+    assert(aa.data[40].data == NULL);
+    XdmcpDisposeARRAYofARRAY8(&aa);
+}
+
 int
 main(int argc, char **argv)
 {
     TestAllocOversizeArrays();
+    TestZeroFillARRAYofARRAY8();
 
     exit(0);
 }
