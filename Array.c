@@ -55,80 +55,68 @@ xrealloc(void *ptr, size_t size)
 int
 XdmcpAllocARRAY8 (ARRAY8Ptr array, int length)
 {
-    CARD8Ptr	newData;
-
     /* length defined in ARRAY8 struct is a CARD16 (not CARD8 like the rest) */
     if (length > UINT16_MAX)
-	return FALSE;
+        array->data = NULL;
+    else
+        array->data = xmalloc(length * sizeof (CARD8));
 
-    newData = (CARD8Ptr) xmalloc(length * sizeof (CARD8));
-    if (!newData) {
+    if (array->data == NULL) {
 	array->length = 0;
-	array->data = NULL;
 	return FALSE;
     }
     array->length = (CARD16) length;
-    array->data = newData;
     return TRUE;
 }
 
 int
 XdmcpAllocARRAY16 (ARRAY16Ptr array, int length)
 {
-    CARD16Ptr	newData;
-
     /* length defined in ARRAY16 struct is a CARD8 */
     if (length > UINT8_MAX)
-	return FALSE;
+        array->data = NULL;
+    else
+        array->data = xmalloc(length * sizeof (CARD16));
 
-    newData = (CARD16Ptr) xmalloc(length * sizeof (CARD16));
-    if (!newData) {
+    if (array->data == NULL) {
 	array->length = 0;
-	array->data = NULL;
 	return FALSE;
     }
     array->length = (CARD8) length;
-    array->data = newData;
     return TRUE;
 }
 
 int
 XdmcpAllocARRAY32 (ARRAY32Ptr array, int length)
 {
-    CARD32Ptr	newData;
-
     /* length defined in ARRAY32 struct is a CARD8 */
     if (length > UINT8_MAX)
-	return FALSE;
+        array->data = NULL;
+    else
+        array->data = xmalloc(length * sizeof (CARD32));
 
-    newData = (CARD32Ptr) xmalloc(length * sizeof (CARD32));
-    if (!newData) {
+    if (array->data == NULL) {
 	array->length = 0;
-	array->data = NULL;
 	return FALSE;
     }
     array->length = (CARD8) length;
-    array->data = newData;
     return TRUE;
 }
 
 int
 XdmcpAllocARRAYofARRAY8 (ARRAYofARRAY8Ptr array, int length)
 {
-    ARRAY8Ptr	newData;
-
     /* length defined in ARRAYofARRAY8 struct is a CARD8 */
     if (length > UINT8_MAX)
-	return FALSE;
+        array->data = NULL;
+    else
+        array->data = xmalloc(length * sizeof (ARRAY8));
 
-    newData = (ARRAY8Ptr) xmalloc(length * sizeof (ARRAY8));
-    if (!newData) {
+    if (array->data == NULL) {
 	array->length = 0;
-	array->data = NULL;
 	return FALSE;
     }
     array->length = (CARD8) length;
-    array->data = newData;
     return TRUE;
 }
 
