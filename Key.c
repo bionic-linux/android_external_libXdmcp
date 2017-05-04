@@ -65,15 +65,15 @@ getbits (long data, unsigned char *dst)
 #ifndef HAVE_ARC4RANDOM_BUF
 
 static void
-emulate_getrandom_buf (char *auth, int len)
+insecure_getrandom_buf (unsigned char *auth, int len)
 {
     long    lowbits, highbits;
 
     srandom ((int)getpid() ^ time((Time_t *)0));
     lowbits = random ();
     highbits = random ();
-    getbits (lowbits, key->data);
-    getbits (highbits, key->data + 4);
+    getbits (lowbits, auth);
+    getbits (highbits, auth + 4);
 }
 
 static void
@@ -88,7 +88,7 @@ arc4random_buf (void *auth, int len)
 	return;
 #endif /* HAVE_GETENTROPY */
 
-    emulate_getrandom_buf (auth, len);
+    insecure_getrandom_buf (auth, len);
 }
 
 #endif /* !defined(HAVE_ARC4RANDOM_BUF) */
