@@ -64,6 +64,11 @@ getbits (long data, unsigned char *dst)
 
 #ifndef HAVE_ARC4RANDOM_BUF
 
+/* Solaris 11.3.0 - 11.4.15 only define getentropy() in <sys/random.h> */
+#if HAVE_GETENTROPY && HAVE_SYS_RANDOM_H
+# include <sys/random.h>
+#endif
+
 static void
 insecure_getrandom_buf (unsigned char *auth, int len)
 {

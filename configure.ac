@@ -52,6 +52,9 @@ XORG_CHECK_SGML_DOCTOOLS(1.8)
 # Checks for programs.
 AC_PROG_LN_S
 
+# Checks for header files.
+AC_CHECK_HEADERS([sys/random.h])
+
 # Checks for libraries.
 AC_SEARCH_LIBS([recvfrom],[socket])
 
