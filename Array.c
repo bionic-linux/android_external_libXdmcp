@@ -149,7 +149,7 @@ XdmcpCopyARRAY8 (const ARRAY8Ptr src, ARRAY8Ptr dst)
 {
     if (!XdmcpAllocARRAY8(dst, src->length))
 	return FALSE;
-    memmove (dst->data, src->data, src->length * sizeof (CARD8));
+    memcpy(dst->data, src->data, src->length * sizeof (CARD8));
     return TRUE;
 }
 
