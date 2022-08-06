@@ -84,9 +84,9 @@ insecure_getrandom_buf (unsigned char *auth, int len)
 static void
 arc4random_buf (void *auth, int len)
 {
+#if HAVE_GETENTROPY
     int	    ret;
 
-#if HAVE_GETENTROPY
     /* weak emulation of arc4random through the getentropy libc call */
     ret = getentropy (auth, len);
     if (ret == 0)
