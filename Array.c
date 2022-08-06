@@ -250,10 +250,8 @@ XdmcpDisposeARRAY32 (ARRAY32Ptr array)
 void
 XdmcpDisposeARRAYofARRAY8 (ARRAYofARRAY8Ptr array)
 {
-    int	i;
-
     if (array->data != NULL) {
-	for (i = 0; i < (int)array->length; i++)
+	for (unsigned int i = 0; i < (unsigned int) array->length; i++)
 	    XdmcpDisposeARRAY8 (&array->data[i]);
 	free(array->data);
     }
