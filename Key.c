@@ -32,10 +32,6 @@ in this Software without prior written authorization from The Open Group.
 #include <X11/Xmd.h>
 #include <X11/Xdmcp.h>
 
-#ifdef HAVE_LIBBSD
-#include <bsd/stdlib.h> /* for arc4random_buf() */
-#endif
-
 #ifndef HAVE_ARC4RANDOM_BUF
 static void
 getbits (long data, unsigned char *dst)

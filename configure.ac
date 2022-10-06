@@ -56,6 +56,11 @@ AC_PROG_LN_S
 AC_CHECK_HEADERS([sys/random.h])
 
 # Checks for libraries.
+PKG_CHECK_MODULES([LIBBSD], [libbsd-overlay], [
+	CFLAGS="$CFLAGS $LIBBSD_CFLAGS"
+	LIBS="$LIBS $LIBBSD_LIBS"
+], [:])
+
 AC_SEARCH_LIBS([recvfrom],[socket])
 
 case $host_os in
@@ -67,7 +72,6 @@ case $host_os in
 esac
 
 # Checks for library functions.
-AC_CHECK_LIB([bsd], [arc4random_buf])
 AC_CHECK_FUNCS([srand48 lrand48 arc4random_buf getentropy])
 
 # Obtain compiler/linker options for dependencies
