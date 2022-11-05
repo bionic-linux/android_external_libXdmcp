@@ -56,11 +56,6 @@ AC_PROG_LN_S
 AC_CHECK_HEADERS([sys/random.h])
 
 # Checks for libraries.
-PKG_CHECK_MODULES([LIBBSD], [libbsd-overlay], [
-	CFLAGS="$CFLAGS $LIBBSD_CFLAGS"
-	LIBS="$LIBS $LIBBSD_LIBS"
-], [:])
-
 AC_SEARCH_LIBS([recvfrom],[socket])
 
 case $host_os in
@@ -70,6 +65,17 @@ case $host_os in
      *)
         ;;
 esac
+
+# Checks for non-standard functions and fallback to libbsd if we can
+# We only check for arc4random_buf, because if we have that, we don't
+# need/use getentropy.
+AC_LINK_IFELSE([AC_LANG_CALL([], [arc4random_buf])],
+               [TRY_LIBBSD="no"], [TRY_LIBBSD="yes"])
+AS_IF([test "x$TRY_LIBBSD" = "xyes"],
+      [PKG_CHECK_MODULES([LIBBSD], [libbsd-overlay], [
+	CFLAGS="$CFLAGS $LIBBSD_CFLAGS"
+	LIBS="$LIBS $LIBBSD_LIBS"
+], [:])])
 
 # Checks for library functions.
 AC_CHECK_FUNCS([srand48 lrand48 arc4random_buf getentropy])
