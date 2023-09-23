@@ -45,7 +45,7 @@ XdmcpWriteHeader (
 	newData = (BYTE *) malloc(XDM_MAX_MSGLEN * sizeof (BYTE));
 	if (!newData)
 	    return FALSE;
-	free((unsigned long *)(buffer->data));
+	free(buffer->data);
 	buffer->data = newData;
 	buffer->size = XDM_MAX_MSGLEN;
     }
