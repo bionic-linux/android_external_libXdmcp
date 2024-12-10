@@ -1,0 +1,22 @@
+cc_library {
+    name: "libXdmcp",
+    cflags: [
+        "-DHASXDMAUTH",
+        "-DHAVE_ARC4RANDOM_BUF"
+    ],
+    srcs: [
+        "Array.c",
+        "Fill.c",
+        "Flush.c",
+        "Key.c",
+        "Read.c",
+        "Unwrap.c",
+        "Wrap.c",
+        "Write.c",
+        "Wraphelp.c",
+    ],
+    header_libs: ["xorgproto"],
+    export_header_lib_headers: ["xorgproto"],
+    export_include_dirs: ["include"],
+    local_include_dirs: ["."],
+}
